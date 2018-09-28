@@ -24,9 +24,9 @@
     <div class="x-nav">
       <span class="layui-breadcrumb">
         <a href="">首页</a>
-        <a >商品管理</a>
+        <a >订单管理</a>
         <a>
-          <cite>商品列表</cite></a>
+          <cite>订单列表</cite></a>
       </span>
       <a class="layui-btn layui-btn-small" style="margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
         <i class="layui-icon layui-icon-refresh"></i></a>
@@ -34,14 +34,14 @@
     <div class="x-body">
 	    <div class="demoTable layui-row x-so">
 	      <div class="layui-inline">
-	          <input type="text" id="searchId"  placeholder="请输入商品的ID" autocomplete="off" class="layui-input">
+	          <input type="text" id="searchOrderNo"  placeholder="请输入订单号" autocomplete="off" class="layui-input">
 		  </div>          
 		  <div class="layui-inline">
-	          <input type="text" id="searchName"  placeholder="请输入商品的名称" autocomplete="off" class="layui-input">
+	          <input type="text" id="searchUserId"  placeholder="请输入用户的ID" autocomplete="off" class="layui-input">
 	      </div> 
-	          <button class="layui-btn" data-type="search"><i class="layui-icon">&#xe615;</i>搜索商品</button>
+	          <button class="layui-btn" data-type="search"><i class="layui-icon">&#xe615;</i>搜索订单</button>
 	          <button class="layui-btn layui-btn-danger" data-type="deleteAll"><i class="layui-icon"></i>批量删除</button>
-	          <button class="layui-btn" onclick="x_admin_show('添加商品','./member-add.html',600,400)"><i class="layui-icon"></i>添加商品</button>
+	          <button class="layui-btn" onclick="x_admin_show('添加订单','./member-add.html',600,400)"><i class="layui-icon"></i>添加订单</button>
 	    </div>
 		<table id="tableId" lay-filter="tableFilter"></table>
     </div>
@@ -59,19 +59,21 @@
 		    elem: '#tableId'
 		    ,id : "layUITableId" //设定容器唯一ID，id值是对表格的数据操作方法上是必要的传递条件，它是表格容器的索引
 		   	,page : true
-		    ,url: '${ctx}/product/pageList.action' //数据接口
+		    ,url: '${ctx}/order/pageList.action' //数据接口
 		    ,cols: [[ //表头
 		       {type:'checkbox', fixed: 'left'}
-		      ,{field: 'id', title: '商品ID', sort: true, fixed: 'left'}
-		      ,{field: 'categoryId', title: '类别',  sort: true}
-		      ,{field: 'name', title: '名称'}
-		      ,{field: 'subtitle', title: '简介'}
-		      ,{field: 'mainImage', title: 'mainImage'} 
-		      ,{field: 'subImages', title: 'subImages'}
-		      ,{field: 'detail', title: 'detail'}
-		      ,{field: 'price', title: '价格',  sort: true}
-		      ,{field: 'stock', title: '库存', sort: true}
-		      ,{field: 'status', title: 'status',  sort: true}
+		      ,{field: 'id', title: '订单ID', sort: true, fixed: 'left'}
+		      ,{field: 'orderNo', title: '订单号',  sort: true}
+		      ,{field: 'userId', title: '用户ID'}
+		      ,{field: 'shippingId', title: 'shippingId'}
+		      ,{field: 'payment', title: '实际付款金额(元)'} 
+		      ,{field: 'paymentType', title: '支付类型'}
+		      ,{field: 'postage', title: '运费'}
+		      ,{field: 'status', title: '订单状态',  sort: true}
+		      ,{field: 'paymentTime', title: '支付时间', sort: true}
+		      ,{field: 'sendTime', title: '发货时间',  sort: true}
+		      ,{field: 'endTime', title: '交易完成时间',  sort: true}
+		      ,{field: 'closeTime', title: '交易关闭时间',  sort: true}
 		      ,{field: 'createTime', title: '创建时间',  sort: true}
 		      ,{field: 'updateTime', title: '更新时间', sort: true}
 		      ,{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}
@@ -90,9 +92,9 @@
 		    if(obj.event === 'detail'){
 		      layer.msg('ID：'+ data.id + ' 的查看操作');
 		    } else if(obj.event === 'del'){
-		      layer.confirm('确定删除这个商品吗?', function(index){
+		      layer.confirm('确定删除这个订单吗?', function(index){
 		    	  $.ajax({
-		    		url:"${ctx}/product/deleteByPrimaryKey.action",
+		    		url:"${ctx}/order/deleteByPrimaryKey.action",
 		    		data:{"id":data.id},
 		    		dataType:"json",
 		    		success:function(resp) {
@@ -122,9 +124,9 @@
 		       console.log(checkStatus.isAll);//表格是否全选
 		       var ids = util.getSelectedIds(data);
 		       console.log(ids);
-		       layer.confirm('确定删除这些商品吗?', function(index){
+		       layer.confirm('确定删除这些订单吗?', function(index){
 			    	$.ajax({
-			    		url:"${ctx}/product/deleteAll.action",
+			    		url:"${ctx}/order/deleteAll.action",
 			    		data:{"ids":ids},
 			    		dataType:"json",
 			    		success:function(resp) {
@@ -143,8 +145,8 @@
 			search : function() {
 				table.reload('layUITableId', {
 				  where: { //设定异步数据接口的额外参数，任意设
-					  id:$("#searchId").val(),
-					  name:$("#searchName").val()
+					  orderNo:$("#searchOrderNo").val(),
+					  userId:$("#searchUserId").val()
 				  }
 				  ,page: {
 				    curr: 1 //重新从第 1 页开始
