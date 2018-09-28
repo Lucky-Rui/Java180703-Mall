@@ -220,14 +220,21 @@
 		<include refid="Base_Column_List" />
 		from product
 		<where>
+	 		<if test=" id!= null">
+	 			and id = #{id}
+	 		</if>
 	 		<if test="name!=null and name!='' ">
 	 			and name like concat('%', #{name}, '%')
-	 		</if>
-	 		<if test="subtitle!=null">
-	 			and subtitle like concat('%', #{subtitle}, '%')
 	 		</if>
 		</where>
 	</select>
 	
+  <delete id="deleteAll">
+  	delete from product
+  	where id in
+  	<foreach collection="array" item="id" open="(" close=")" separator=",">
+  		#{id}
+  	</foreach>
+  </delete>
 	
 </mapper>

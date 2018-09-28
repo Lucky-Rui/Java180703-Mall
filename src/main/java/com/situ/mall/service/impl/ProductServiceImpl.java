@@ -52,4 +52,15 @@ public class ProductServiceImpl implements IProductService {
 			return ServerResponse.createError("删除失败");
 		}
 	}
+
+	@Override
+	public ServerResponse<List<Product>> deleteAll(String ids) {
+		String[] idArray = ids.split(",");
+		int count = productMapper.deleteAll(idArray);
+		if (count == idArray.length) {
+			return ServerResponse.createSuccess("删除成功");
+		} else {
+			return ServerResponse.createError("删除失败");
+		}
+	}
 }

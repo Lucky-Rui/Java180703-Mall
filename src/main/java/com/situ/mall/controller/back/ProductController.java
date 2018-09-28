@@ -34,4 +34,10 @@ public class ProductController {
 	public ServerResponse<List<Product>> deleteByPrimaryKey(Integer id) {
 		return productService.deleteByPrimaryKey(id);
 	}
+
+	@RequestMapping(value = "/deleteAll")
+	@ResponseBody
+	public ServerResponse<List<Product>> deleteAll(String ids) {
+		return productService.deleteAll(ids);
+	}
 }

@@ -32,16 +32,20 @@
         <i class="layui-icon layui-icon-refresh"></i></a>
     </div>
     <div class="x-body">
-      <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so">
-          <input type="text" name="username"  placeholder="请输入商品的ID" autocomplete="off" class="layui-input">
-          <input type="text" name="username"  placeholder="请输入商品的名称" autocomplete="off" class="layui-input">
-          <button class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
-                  <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','./member-add.html',600,400)"><i class="layui-icon"></i>添加</button>
-        </form>
-      </div>
-	<table id=tableId lay-filter="tableFilter"></table>
+	    <div class="demoTable layui-row x-so">
+	      <div class="layui-inline">
+	          <input type="text" id="searchId"  placeholder="请输入商品的ID" autocomplete="off" class="layui-input">
+		  </div>          
+		  <div class="layui-inline">
+	          <input type="text" id="searchName"  placeholder="请输入商品的名称" autocomplete="off" class="layui-input">
+	      </div> 
+	          <button class="layui-btn" data-type="search"><i class="layui-icon">&#xe615;</i>搜索商品</button>
+	          <button class="layui-btn layui-btn-danger" data-type="deleteAll"><i class="layui-icon"></i>批量删除</button>
+	          <button class="layui-btn" onclick="x_admin_show('添加商品','./member-add.html',600,400)"><i class="layui-icon"></i>添加商品</button>
+	    </div>
+		<table id="tableId" lay-filter="tableFilter"></table>
+    </div>
+    
  	<script type="text/html" id="barDemo">
        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
@@ -50,6 +54,7 @@
 	<script>
 		layui.use('table', function(){
 		  var table = layui.table;
+		  
 		  table.render({
 		    elem: '#tableId'
 		    ,id : "layUITableId" //设定容器唯一ID，id值是对表格的数据操作方法上是必要的传递条件，它是表格容器的索引
@@ -77,10 +82,7 @@
 	<script>
 		layui.use('table', function(){
 		  var table = layui.table;
-		  //监听表格复选框选择
-		  table.on('checkbox(demo)', function(obj){
-		    console.log(obj)
-		  });
+		  
 		  //监听工具条
 		  //tool是工具条事件名，tableFilter是table容器属性lay-filter="tableFilter"对应的值
 		  table.on('tool(tableFilter)', function(obj){
@@ -88,7 +90,7 @@
 		    if(obj.event === 'detail'){
 		      layer.msg('ID：'+ data.id + ' 的查看操作');
 		    } else if(obj.event === 'del'){
-		      layer.confirm('确定删除这个商品么', function(index){
+		      layer.confirm('确定删除这个商品吗?', function(index){
 		    	  $.ajax({
 		    		url:"${ctx}/product/deleteByPrimaryKey.action",
 		    		data:{"id":data.id},
@@ -109,7 +111,46 @@
 		    }
 		  });
 		  
-	
+		  var $ = layui.$, active = {
+		    deleteAll: function(){ 
+		       //获取选中数据
+		       var checkStatus = table.checkStatus('layUITableId')
+		       var data = checkStatus.data;
+		       console.log(data);//选中行的数据
+		       console.log(checkStatus.data.length);//获取选中行的数量
+		       console.log(checkStatus.isAll);//表格是否全选
+		       var ids = util.getSelectedIds(data);
+		       console.log(ids);
+		       layer.confirm('确定删除这些商品吗?', function(index){
+			    	$.ajax({
+			    		url:"${ctx}/product/deleteAll.action",
+			    		data:{"ids":ids},
+			    		dataType:"json",
+			    		success:function(resp) {
+			    			if(resp.code == util.SUCCESS){
+			    				mylayer.success(resp.msg);
+			    				table.reload("layUITableId");
+			    			} else {
+			    				mylayer.errorMsg(resp.msg);
+			    			}
+				        layer.close(index);
+			    		}
+			    	});
+			   });
+		    },
+		    //搜索
+			search : function() {
+				table.reload('layUITableId', {
+				  where: { //设定异步数据接口的额外参数，任意设
+					  id:$("#searchId").val(),
+					  name:$("#searchName").val()
+				  }
+				  ,page: {
+				    curr: 1 //重新从第 1 页开始
+				  }
+				});
+			}		    
+		  };		  
 		  
 		  
 		  $('.demoTable .layui-btn').on('click', function(){

@@ -32,4 +32,11 @@ public interface IProductService {
 	 */
 	ServerResponse<List<Product>> deleteByPrimaryKey(Integer id);
 
+	/**
+	 * 批量删除
+	 * @param ids
+	 * @return
+	 */
+	ServerResponse<List<Product>> deleteAll(String ids);
+
 }
