@@ -38,5 +38,11 @@ public interface IProductService {
 	 * @return
 	 */
 	ServerResponse<List<Product>> deleteAll(String ids);
+	/**
+	 * 添加商品
+	 * @param product
+	 * @return
+	 */
+	ServerResponse<List<Product>> insertProduct(Product product);
 
 }

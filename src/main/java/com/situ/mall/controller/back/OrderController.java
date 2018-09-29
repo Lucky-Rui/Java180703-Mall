@@ -18,7 +18,7 @@ public class OrderController {
 	@Autowired
 	private IOrderService orderService;
 
-	@RequestMapping("/getOrderPage")
+	@RequestMapping("/getOrderListPage")
 	public String getOrderPage() {
 		return "/order/order_list";
 	}

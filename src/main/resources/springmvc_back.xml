@@ -24,4 +24,13 @@
 		<!-- 路径后缀 -->
 		<property name="suffix" value=".jsp"></property>
 	</bean>
+	
+	<!-- 配置文件上传的解析器 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	   <!-- 设置文件上传的最大尺寸 10MB  单位：B-->
+	   <!-- 1KB=1024B  1M=1024KB -->
+	   <property name="maxUploadSize">
+	     <value>#{10*1024*1024}</value>
+	   </property>
+	</bean>
 </beans>

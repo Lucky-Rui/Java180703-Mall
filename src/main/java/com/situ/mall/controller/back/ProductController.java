@@ -18,7 +18,7 @@ public class ProductController {
 	@Autowired
 	private IProductService productService;
 
-	@RequestMapping("/getProductPage")
+	@RequestMapping("/getProductListPage")
 	public String getProductPage() {
 		return "/product/product_list";
 	}
@@ -39,5 +39,16 @@ public class ProductController {
 	@ResponseBody
 	public ServerResponse<List<Product>> deleteAll(String ids) {
 		return productService.deleteAll(ids);
+	}
+
+	@RequestMapping(value = "/getProductInsertPage")
+	public String getProductAddPage() {
+		return "/product/product_insert";
+	}
+	
+	@RequestMapping(value = "/insertProduct")
+	@ResponseBody
+	public ServerResponse<List<Product>> addProduct(Product product) {
+		return productService.insertProduct(product);
 	}
 }

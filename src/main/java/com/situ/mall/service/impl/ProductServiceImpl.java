@@ -63,4 +63,18 @@ public class ProductServiceImpl implements IProductService {
 			return ServerResponse.createError("删除失败");
 		}
 	}
+
+	@Override
+	public ServerResponse<List<Product>> insertProduct(Product product) {
+		try {
+			int count = productMapper.insert(product);
+			if (count == 1) {
+				return ServerResponse.createSuccess("添加成功");
+			} else {
+				return ServerResponse.createError("添加失败");
+			}
+		} catch (Exception e) {
+			return ServerResponse.createError("添加失败");
+		}
+	}
 }

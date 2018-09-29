@@ -61,7 +61,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="${ctx}/product/getProductPage.action">
+                        <a _href="${ctx}/product/getProductListPage.action">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>商品列表</cite>
                             
@@ -74,7 +74,7 @@
                             
                         </a>
                     </li>
-                    <li>
+                   <!--  <li>
                         <a href="javascript:;">
                             <i class="iconfont">&#xe70b;</i>
                             <cite>会员管理</cite>
@@ -104,7 +104,7 @@
                             </li>
                             
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
             </li>
             <li>
@@ -115,7 +115,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="${ctx}/order/getOrderPage.action">
+                        <a _href="${ctx}/order/getOrderListPage.action">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>订单列表</cite>
                         </a>

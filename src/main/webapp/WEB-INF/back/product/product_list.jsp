@@ -41,7 +41,7 @@
 	      </div> 
 	          <button class="layui-btn" data-type="search"><i class="layui-icon">&#xe615;</i>搜索商品</button>
 	          <button class="layui-btn layui-btn-danger" data-type="deleteAll"><i class="layui-icon"></i>批量删除</button>
-	          <button class="layui-btn" onclick="x_admin_show('添加商品','./member-add.html',600,400)"><i class="layui-icon"></i>添加商品</button>
+	          <button class="layui-btn" onclick="x_admin_show('添加商品','${ctx}/product/getProductInsertPage.action',700,550)"><i class="layui-icon"></i>添加商品</button>
 	    </div>
 		<table id="tableId" lay-filter="tableFilter"></table>
     </div>
@@ -50,6 +50,16 @@
        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+	</script>
+		<script type="text/html" id="statusTpl">
+		 {{#  if(d.status == 1){  }}
+		 	           上架
+		 {{#  } else {            }}
+				  下架
+		 {{#  }					  }}
+	</script>
+	<script type="text/html" id="mainImageTpl">
+		 <img src="/productImg/{{d.mainImage}}"/>
 	</script>
 	<script>
 		layui.use('table', function(){
@@ -63,15 +73,15 @@
 		    ,cols: [[ //表头
 		       {type:'checkbox', fixed: 'left'}
 		      ,{field: 'id', title: '商品ID', sort: true, fixed: 'left'}
-		      ,{field: 'categoryId', title: '类别',  sort: true}
-		      ,{field: 'name', title: '名称'}
-		      ,{field: 'subtitle', title: '简介'}
-		      ,{field: 'mainImage', title: 'mainImage'} 
-		      ,{field: 'subImages', title: 'subImages'}
-		      ,{field: 'detail', title: 'detail'}
+		      ,{field: 'categoryId', title: '分类ID',  sort: true}
+		      ,{field: 'name', title: '商品名称'}
+		      ,{field: 'subtitle', title: '商品副标题'}
+		      ,{field: 'mainImage', title: '产品主图,URL相对地址', templet:"#mainImageTpl"} 
+		      ,{field: 'subImages', title: '图片地址,json格式,扩展用'}
+		      ,{field: 'detail', title: '商品详情'}
 		      ,{field: 'price', title: '价格',  sort: true}
 		      ,{field: 'stock', title: '库存', sort: true}
-		      ,{field: 'status', title: 'status',  sort: true}
+		      ,{field: 'status', title: '商品状态',  sort: true, templet:"#statusTpl"}
 		      ,{field: 'createTime', title: '创建时间',  sort: true}
 		      ,{field: 'updateTime', title: '更新时间', sort: true}
 		      ,{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}
@@ -98,7 +108,8 @@
 		    		success:function(resp) {
 		    			if(resp.code == util.SUCCESS){
 		    				mylayer.success(resp.msg);
-		    				table.reload("layUITableId");//表格重新加载
+		    				//表格重新加载
+		    				table.reload("layUITableId");
 		    			} else {
 		    				mylayer.errorMsg(resp.msg);
 		    			}

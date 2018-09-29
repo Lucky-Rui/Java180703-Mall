@@ -148,4 +148,19 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+    
+  <select id="selectTopCategory" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from category
+    where parent_id = 0
+  </select>
+  
+  <select id="selectSecondCategory" parameterType="int" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from category
+    where parent_id = #{topCategoryId}
+  </select>
 </mapper>

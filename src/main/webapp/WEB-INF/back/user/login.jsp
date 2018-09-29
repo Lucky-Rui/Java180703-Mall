@@ -39,15 +39,6 @@
         <hr class="hr20" >
     </div>
 
-	<script>
-		//一般直接写在一个js文件中
-		layui.use(['layer', 'form'], function(){
-		  var layer = layui.layer
-		  ,form = layui.form;
-		  
-		  layer.msg('欢迎');
-		});
-	</script> 
     <script>
 	    function submitForm() {
 			/* 1、验证用户名

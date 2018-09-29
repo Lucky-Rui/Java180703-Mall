@@ -42,7 +42,7 @@ public interface ProductMapper {
 	int updateByPrimaryKey(Product record);
 
 	/**
-	 * 查找�?有商�?
+	 * 查找所有商品
 	 * 
 	 * @return
 	 */

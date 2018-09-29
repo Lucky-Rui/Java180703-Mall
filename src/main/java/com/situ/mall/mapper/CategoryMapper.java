@@ -1,5 +1,7 @@
 package com.situ.mall.mapper;
 
+import java.util.List;
+
 import com.situ.mall.entity.Category;
 
 public interface CategoryMapper {
@@ -39,4 +41,8 @@ public interface CategoryMapper {
 	 * @mbggenerated
 	 */
 	int updateByPrimaryKey(Category record);
+
+	List<Category> selectTopCategory();
+
+	List<Category> selectSecondCategory(Integer topCategoryId);
 }
