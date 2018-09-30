@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>添加商品</title>
+	<title>修改商品</title>
 	<link rel="stylesheet" href="${ctx}/static/back/lib/layui/css/layui.css" media="all">
 	<link rel="stylesheet" href="${ctx}/static/back/css/font.css">
 	<link rel="stylesheet" href="${ctx}/static/back/css/xadmin.css">
@@ -17,10 +17,15 @@
     <script src="${ctx}/static/back/js/xadmin.js"></script>
     <script charset="utf-8" src="${ctx}/static/common/kindeditor/kindeditor.js"></script>
 	<script charset="utf-8" src="${ctx}/static/common/kindeditor/lang/zh_CN.js"></script>
+	<script>
+	      KindEditor.ready(function(K) {
+	    	  window.editor = K.create('#detail');
+	      });
+	</script>
 </head>
 <body>
     <div class="x-body">
-		<form class="layui-form layui-form-pane" id="form_insert">
+		<form class="layui-form layui-form-pane" id="form_insertProduct">
 		  <div class="layui-form-item">
 		    <label class="layui-form-label">商品名称</label>
 		    <div class="layui-input-block">
@@ -173,42 +178,20 @@
 			});
 		});
 		
-		//富文本编辑器
-		KindEditor.ready(function(K) {
-			var myKindEditor ;
-	        KindEditor.ready(function(K) {
-	            var kingEditorParams = {
-	                 //指定上传文件参数名称
-	                 filePostName  : "file",
-	                 //指定上传文件请求的url。
-	                 uploadJson : '${ctx}/upload/uploadImgByEditor.action',
-	                 //上传类型，分别为image、flash、media、file
-	                 dir : "image",
-	                 afterBlur: function () { this.sync(); }
-	        }
-	        var editor = K.editor(kingEditorParams);
-
-	        //富文本编辑器
-	        myKindEditor = KindEditor.create('#form_insert[name=detail]', kingEditorParams);
-	        });
-		});
-		
 		//用ajax方式提交form表单
 		function submitForm(){
 			$.ajax({
 				url : '${ctx}/product/insertProduct.action',
-				data : $('#form_insert').serialize(),
+				data : $('#form_insertProduct').serialize(),
 				type : 'POST',
 				dataType : 'json',
 				success : function(resp) {
 					if(resp.code == util.SUCCESS) {
-						layer.alert("添加成功", {icon: 1,time :3000},function () {
-			                // 获得获取当前弹出层的层级
+						layer.alert("添加成功", {icon: 1},function () {
+			                // 获得frame索引
 			                var index = parent.layer.getFrameIndex(window.name);
-			                //关闭弹出层
+			                //关闭当前frame
 			                parent.layer.close(index);
-			                //刷新父页面
-			                window.parent.location.reload();
 						});
 					} else {
 						mylayer.errorMsg(resp.msg);
@@ -216,9 +199,6 @@
 				}
 			});
 		}
-	</script>
-	<script>
-	    
 	</script>
 	
 	

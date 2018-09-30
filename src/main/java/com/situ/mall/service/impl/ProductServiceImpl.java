@@ -77,4 +77,18 @@ public class ProductServiceImpl implements IProductService {
 			return ServerResponse.createError("添加失败");
 		}
 	}
+
+	@Override
+	public ServerResponse<List<Product>> updateByPrimaryKey(Product product) {
+		try {
+			int count = productMapper.updateByPrimaryKey(product);
+			if (count == 1) {
+				return ServerResponse.createSuccess("添加成功");
+			} else {
+				return ServerResponse.createError("添加失败");
+			}
+		} catch (Exception e) {
+			return ServerResponse.createError("添加失败");
+		}
+	}
 }

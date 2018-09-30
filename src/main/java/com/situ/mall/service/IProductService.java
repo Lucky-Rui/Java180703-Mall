@@ -45,4 +45,11 @@ public interface IProductService {
 	 */
 	ServerResponse<List<Product>> insertProduct(Product product);
 
+	/**
+	 * 编辑商品
+	 * @param product
+	 * @return
+	 */
+	ServerResponse<List<Product>> updateByPrimaryKey(Product product);
+
 }

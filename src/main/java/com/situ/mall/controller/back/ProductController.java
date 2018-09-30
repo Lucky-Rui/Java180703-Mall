@@ -45,10 +45,22 @@ public class ProductController {
 	public String getProductAddPage() {
 		return "/product/product_insert";
 	}
-	
+
 	@RequestMapping(value = "/insertProduct")
 	@ResponseBody
-	public ServerResponse<List<Product>> addProduct(Product product) {
+	public ServerResponse<List<Product>> insertProduct(Product product) {
 		return productService.insertProduct(product);
 	}
+
+	@RequestMapping(value = "/getProductUpdatePage")
+	public String getProductUpdatePage() {
+		return "/product/product_update";
+	}
+
+	@RequestMapping(value = "/updateByPrimaryKey")
+	@ResponseBody
+	public ServerResponse<List<Product>> updateByPrimaryKey(Product product) {
+		return productService.updateByPrimaryKey(product);
+	}
+
 }

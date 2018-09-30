@@ -48,7 +48,7 @@
     
  	<script type="text/html" id="barDemo">
        <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-       <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+       <a class="layui-btn layui-btn-xs" lay-event="update">更新</a>
        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 	</script>
 		<script type="text/html" id="statusTpl">
@@ -117,8 +117,9 @@
 		    		}
 		    	  });
 		      });
-		    } else if(obj.event === 'edit'){
-		      layer.alert('编辑行：<br>'+ JSON.stringify(data))
+		    } else if(obj.event === 'update'){
+		      //layer.alert('编辑行：<br>'+ JSON.stringify(data))
+		      x_admin_show('更新商品','${ctx}/product/getProductUpdatePage.action',700,550)
 		    }
 		  });
 		  
