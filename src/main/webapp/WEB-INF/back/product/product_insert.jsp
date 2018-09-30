@@ -91,10 +91,33 @@
 	</div>
 	
 	<script>
+		$(function() {
+			//加载一级分类
+			$.ajax({
+				url : "${ctx}/category/selectTopCategory.action",
+				type : "post",
+				dataType : "json",
+				success : function(resp) {
+					console.log(resp);
+					if(resp.code == util.SUCCESS) {
+						var html = "<option value=''>请选择一级分类</option>";
+						var data = resp.data;
+						for(var i = 0; i < data.length; i++) {
+							html += "<option value='"+data[i].id+"'>"+data[i].name+"</option>"
+						}
+						$("#topCategory").html(html);
+					} else {
+					}
+				}
+			});
+		});
+	
 		layui.use(['form', 'upload'], function(){
 		  var form = layui.form;
 		  var upload = layui.upload;
 		  
+		  //刷新select选择框渲染
+		  form.render('select');
 		  //监听select选择
 		  //下拉选择框被选中时触发，回调函数返回一个object参数，携带两个成员：
 		  form.on('select(topCategoryFilter)', function(data){
@@ -152,26 +175,7 @@
 		  });
 		});
 		
-		$(function() {
-			//加载一级分类
-			$.ajax({
-				url : "${ctx}/category/selectTopCategory.action",
-				type : "post",
-				dataType : "json",
-				success : function(resp) {
-					console.log(resp);
-					if(resp.code == util.SUCCESS) {
-						var html = "<option value=''>请选择一级分类</option>";
-						var data = resp.data;
-						for(var i = 0; i < data.length; i++) {
-							html += "<option value='"+data[i].id+"'>"+data[i].name+"</option>"
-						}
-						$("#topCategory").html(html);
-					} else {
-					}
-				}
-			});
-		});
+		
 		
 		//富文本编辑器
 		KindEditor.ready(function(K) {
