@@ -119,7 +119,7 @@
 		      });
 		    } else if(obj.event === 'update'){
 		      //layer.alert('编辑行：<br>'+ JSON.stringify(data))
-		      x_admin_show('更新商品','${ctx}/product/getProductUpdatePage.action',700,550)
+		      x_admin_show('更新商品','${ctx}/product/getProductUpdatePage.action?id='+ data.id,700,550)
 		    }
 		  });
 		  

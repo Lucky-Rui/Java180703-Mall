@@ -26,6 +26,8 @@
 <body>
     <div class="x-body">
 		<form class="layui-form layui-form-pane" id="form_insertProduct">
+			${product}
+		
 		  <div class="layui-form-item">
 		    <label class="layui-form-label">商品名称</label>
 		    <div class="layui-input-block">
@@ -181,7 +183,7 @@
 		//用ajax方式提交form表单
 		function submitForm(){
 			$.ajax({
-				url : '${ctx}/product/insertProduct.action',
+				url : '${ctx}/product/updateByPrimaryKey.action',
 				data : $('#form_insertProduct').serialize(),
 				type : 'POST',
 				dataType : 'json',

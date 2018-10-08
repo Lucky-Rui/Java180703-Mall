@@ -34,12 +34,15 @@ public interface IProductService {
 
 	/**
 	 * 批量删除
+	 * 
 	 * @param ids
 	 * @return
 	 */
 	ServerResponse<List<Product>> deleteAll(String ids);
+
 	/**
 	 * 添加商品
+	 * 
 	 * @param product
 	 * @return
 	 */
@@ -47,9 +50,18 @@ public interface IProductService {
 
 	/**
 	 * 编辑商品
+	 * 
 	 * @param product
 	 * @return
 	 */
 	ServerResponse<List<Product>> updateByPrimaryKey(Product product);
+
+	/**
+	 * 获得指定id的商品信息
+	 * 
+	 * @param id
+	 * @return
+	 */
+	Product selectByPrimaryKey(Integer id);
 
 }

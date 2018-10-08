@@ -91,4 +91,11 @@ public class ProductServiceImpl implements IProductService {
 			return ServerResponse.createError("添加失败");
 		}
 	}
+
+	@Override
+	public Product selectByPrimaryKey(Integer id) {
+		return productMapper.selectByPrimaryKey(id);
+	}
+
+	
 }

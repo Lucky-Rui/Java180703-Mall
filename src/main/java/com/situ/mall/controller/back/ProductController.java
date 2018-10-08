@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.situ.mall.common.ServerResponse;
 import com.situ.mall.entity.Product;
 import com.situ.mall.service.IProductService;
@@ -53,7 +55,9 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/getProductUpdatePage")
-	public String getProductUpdatePage() {
+	public String getProductUpdatePage(Model model ,Integer id) {
+		Product product = productService.selectByPrimaryKey(id);
+		model.addAttribute("product", product);
 		return "/product/product_update";
 	}
 
