@@ -54,8 +54,15 @@ public class ProductController {
 		return productService.insertProduct(product);
 	}
 
+	@RequestMapping(value = "/getProductDetailPage")
+	public String getProductDetailPage(Model model, Integer id) {
+		Product product = productService.selectByPrimaryKey(id);
+		model.addAttribute("product", product);
+		return "/product/product_detail";
+	}
+
 	@RequestMapping(value = "/getProductUpdatePage")
-	public String getProductUpdatePage(Model model ,Integer id) {
+	public String getProductUpdatePage(Model model, Integer id) {
 		Product product = productService.selectByPrimaryKey(id);
 		model.addAttribute("product", product);
 		return "/product/product_update";
@@ -66,5 +73,4 @@ public class ProductController {
 	public ServerResponse<List<Product>> updateByPrimaryKey(Product product) {
 		return productService.updateByPrimaryKey(product);
 	}
-
 }

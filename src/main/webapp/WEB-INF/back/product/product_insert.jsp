@@ -64,6 +64,7 @@
 		  <div class="layui-form-item">
 		    <label class="layui-form-label">商品状态</label>
 		    <div class="layui-input-block">
+		      <input type="hidden" id="sta" name="sta" value="${product.status}"/>
 		      <input type="radio" name="status" value="1" title="上架">
 		      <input type="radio" name="status" value="0" title="下架">
 		    </div>
@@ -215,6 +216,7 @@
 			                window.parent.location.reload();
 						});
 					} else {
+						//添加失败
 						mylayer.errorMsg(resp.msg);
 					}
 				}
