@@ -83,12 +83,12 @@ public class ProductServiceImpl implements IProductService {
 		try {
 			int count = productMapper.updateByPrimaryKey(product);
 			if (count == 1) {
-				return ServerResponse.createSuccess("添加成功");
+				return ServerResponse.createSuccess("更新成功");
 			} else {
-				return ServerResponse.createError("添加失败");
+				return ServerResponse.createError("更新失败");
 			}
 		} catch (Exception e) {
-			return ServerResponse.createError("添加失败");
+			return ServerResponse.createError("更新失败");
 		}
 	}
 

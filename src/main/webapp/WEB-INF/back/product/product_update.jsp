@@ -26,7 +26,8 @@
 <body>
     <div class="x-body">
 		<form class="layui-form layui-form-pane" id="form_update">
-			<input type="hidden" id="proudctId" name="productName" value="${product.id}"/>
+		
+		  <input type="hidden" id="id" name="id" value="${product.id}"/>
 		
 		  <div class="layui-form-item">
 		    <label class="layui-form-label">商品名称</label>
@@ -96,7 +97,7 @@
 		    </div>
 		  </div>
 		</form>
-		<button class="layui-btn" onclick="submitForm()">添加</button>
+		<button class="layui-btn" onclick="submitForm()">更新</button>
 	</div>
 	
 	<script>

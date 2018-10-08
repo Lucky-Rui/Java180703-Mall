@@ -99,7 +99,10 @@
 		    var data = obj.data;//获取当前行对象数据，json格式
 		    if(obj.event === 'detail'){
 		    	x_admin_show('查看商品','${ctx}/product/getProductDetailPage.action?id='+ data.id,700,550);
-		    } else if(obj.event === 'del'){
+		    }else if(obj.event === 'update'){
+			      //layer.alert('编辑行：<br>'+ JSON.stringify(data))
+			      x_admin_show('更新商品','${ctx}/product/getProductUpdatePage.action?id='+ data.id,700,550);
+		    }else if(obj.event === 'del'){
 		      layer.confirm('确定删除这个商品吗?', function(index){
 		    	  $.ajax({
 		    		url:"${ctx}/product/deleteByPrimaryKey.action",
@@ -117,10 +120,7 @@
 		    		}
 		    	  });
 		      });
-		    } else if(obj.event === 'update'){
-		      //layer.alert('编辑行：<br>'+ JSON.stringify(data))
-		      x_admin_show('更新商品','${ctx}/product/getProductUpdatePage.action?id='+ data.id,700,550);
-		    }
+		    } 
 		  });
 		  
 		  var $ = layui.$, active = {

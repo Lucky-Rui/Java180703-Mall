@@ -96,12 +96,18 @@
 		    </div>
 		  </div>
 		</form>
-		<button class="layui-btn" onclick="submitForm()">添加</button>
 	</div>
 	
 	<script>
 		//页面加载完就执行
 		$(function() {
+			
+			$("p").attr("disabled", true);  
+			$("img").attr("disabled", true);  
+			$("file").attr("disabled", true);  
+			$("input").attr("disabled",true);
+			$("select").attr("disabled",true);
+			$("textarea").attr("disabled", true);  
 			
 			//商品状态回显
 			var value = $("#sta").val();//sta为id属性

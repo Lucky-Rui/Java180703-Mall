@@ -71,6 +71,7 @@ public class ProductController {
 	@RequestMapping(value = "/updateByPrimaryKey")
 	@ResponseBody
 	public ServerResponse<List<Product>> updateByPrimaryKey(Product product) {
+		System.out.println(product);
 		return productService.updateByPrimaryKey(product);
 	}
 }
