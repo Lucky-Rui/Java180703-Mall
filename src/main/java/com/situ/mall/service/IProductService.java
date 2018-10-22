@@ -64,4 +64,6 @@ public interface IProductService {
 	 */
 	Product selectByPrimaryKey(Integer id);
 
+	List<Product> selectByCategoryId(Integer categoryId);
+
 }

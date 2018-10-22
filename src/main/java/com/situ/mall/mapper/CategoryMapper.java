@@ -3,6 +3,7 @@ package com.situ.mall.mapper;
 import java.util.List;
 
 import com.situ.mall.entity.Category;
+import com.situ.mall.vo.CategoryCountVO;
 
 public interface CategoryMapper {
 
@@ -45,4 +46,9 @@ public interface CategoryMapper {
 	List<Category> selectTopCategory();
 
 	List<Category> selectSecondCategory(Integer topCategoryId);
+
+	List<Category> selectSecondCategoryList();
+
+	List<CategoryCountVO> getCategoryCount();
+	
 }

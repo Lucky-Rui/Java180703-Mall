@@ -4,7 +4,7 @@ var mylayer = {
 	success : function(contents) {
 		layer.msg(
 			contents,
-			{icon:1, time:3000}
+			{icon:1, time:3000,offset: 'auto'}
 		);
 	},
 	
@@ -12,7 +12,7 @@ var mylayer = {
 	successUrl : function(contents, url) {
 		layer.msg(
 			contents,
-			{icon:1, time:3000},
+			{icon:1, time:3000,offset: 'auto'},
 			function() {//msg消失之后触发的函数
 				location.href = url;
 			}
@@ -23,7 +23,7 @@ var mylayer = {
 	errorMsg : function(contents) {
 		layer.msg(
 			contents,
-			{icon:2, time:3000}
+			{icon:2, time:3000,offset: 'auto'}
 		);
 	},
 	
@@ -31,7 +31,7 @@ var mylayer = {
 	errorAlert : function(contents) {
 		layer.alert(
 			contents,
-			{icon:2}
+			{icon:2,offset: 'auto'}
 		);
 	},
 	

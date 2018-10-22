@@ -11,4 +11,14 @@ public interface ICategoryService {
 
 	ServerResponse<List<Category>> selectSecondCategory(Integer topCategoryId);
 
+	/**
+	 * 返回所有的一级分类
+	 * 
+	 * @return
+	 */
+	List<Category> selectTopCategoryList();
+
+	List<Category> selectSecondCategoryList();
+
+	ServerResponse getCategoryCount();
 }

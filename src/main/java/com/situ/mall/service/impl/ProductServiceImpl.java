@@ -97,5 +97,10 @@ public class ProductServiceImpl implements IProductService {
 		return productMapper.selectByPrimaryKey(id);
 	}
 
+	@Override
+	public List<Product> selectByCategoryId(Integer categoryId) {
+		return productMapper.selectByCategoryId(categoryId);
+	}
+
 	
 }
