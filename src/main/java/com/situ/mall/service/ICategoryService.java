@@ -21,4 +21,6 @@ public interface ICategoryService {
 	List<Category> selectSecondCategoryList();
 
 	ServerResponse getCategoryCount();
+
+	Category selectByCategoryId(Integer categoryId);
 }

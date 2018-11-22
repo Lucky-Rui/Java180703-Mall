@@ -1,5 +1,6 @@
 package com.situ.mall.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,15 +9,30 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.situ.mall.common.ServerResponse;
+import com.situ.mall.entity.Cart;
 import com.situ.mall.entity.Order;
+import com.situ.mall.entity.OrderItem;
+import com.situ.mall.entity.Product;
+import com.situ.mall.mapper.CartMapper;
+import com.situ.mall.mapper.OrderItemMapper;
 import com.situ.mall.mapper.OrderMapper;
+import com.situ.mall.mapper.ProductMapper;
+import com.situ.mall.service.ICartService;
 import com.situ.mall.service.IOrderService;
+import com.situ.mall.service.IProductService;
 
 @Service
 public class OrderServiceImpl implements IOrderService {
 	@Autowired
 	private OrderMapper orderMapper;
-
+	@Autowired
+	private CartMapper cartMapper;
+	@Autowired
+	private OrderItemMapper orderItemMapper;
+	@Autowired
+	private ProductMapper productMapper;
+	
+	
 	@Override
 	public List<Order> list() {
 		return orderMapper.list();
@@ -61,5 +77,25 @@ public class OrderServiceImpl implements IOrderService {
 			return ServerResponse.createError("删除失败");
 		}
 	}
+
+	@Override
+	public ServerResponse addOrder(Order order, Integer checked, ICartService cartService,
+			IProductService productService) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServerResponse deleteByOrderNo(Long newOrderNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ServerResponse selectOrderByUserId(Integer page, Integer limit, Integer userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

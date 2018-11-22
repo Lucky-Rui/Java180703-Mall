@@ -102,5 +102,14 @@ public class ProductServiceImpl implements IProductService {
 		return productMapper.selectByCategoryId(categoryId);
 	}
 
-	
+	@Override
+	public ServerResponse selectProductListByCategoryId(Integer categoryId, Integer page, Integer limit) {
+		PageHelper.startPage(page, limit);
+		List<Product> productList = productMapper.selectByCategoryId(categoryId);
+		PageInfo pageInfo = new PageInfo(productList);
+		Integer count = (int) pageInfo.getTotal();
+
+		return ServerResponse.createSuccess("", count, productList);
+	}
+
 }

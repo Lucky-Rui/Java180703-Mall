@@ -2,6 +2,8 @@ package com.situ.mall.util;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +15,12 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.situ.mall.constant.MallConstant;
+import com.situ.mall.entity.Cart;
+import com.situ.mall.entity.Product;
+import com.situ.mall.entity.User;
+import com.situ.mall.service.ICartService;
+import com.situ.mall.service.IProductService;
+import com.situ.mall.vo.CartItemVO;
 import com.situ.mall.vo.CartVO;
 
 public class CartUtil {
@@ -80,5 +88,51 @@ public class CartUtil {
 		cookie.setPath("/");
 		// 将cookie发送到浏览器
 		response.addCookie(cookie);
+	}
+
+	/**
+	 * 通过user查找数据库cart表并将返回的cart转化成CartVO
+	 * 
+	 * @param user
+	 * @return
+	 */
+	public static CartVO getCartVOByUserFromDB(User user, ICartService cartService, IProductService productService) {
+		List<CartItemVO> cartItemVOList = new ArrayList<>();
+		List<Cart> cartList = cartService.selectByUserId(user.getId());
+		for (Cart cart : cartList) {
+			Integer productId = cart.getProductId();
+			Product product = productService.selectByPrimaryKey(productId);
+			Integer amount = cart.getQuantity();
+			Integer isChecked = cart.getChecked();
+			CartItemVO cartItemVO = new CartItemVO(product, amount, isChecked);
+			cartItemVOList.add(cartItemVO);
+		}
+		CartVO cartVO = new CartVO();
+		cartVO.setCartItemVOList(cartItemVOList);
+		return cartVO;
+	}
+
+	/**
+	 * 将CartVO对象转化为cart对象，在将其更新到数据库中
+	 * 
+	 * @param user
+	 * @param cartVO
+	 */
+	public static void setCartVOToDB(User user, CartVO cartVO, ICartService cartService) {
+		List<CartItemVO> cartItemVOList = cartVO.getCartItemVOList();
+		for (CartItemVO cartItemVO : cartItemVOList) {
+			Integer userId = user.getId();
+			Integer productId = cartItemVO.getProduct().getId();
+			Integer quantity = cartItemVO.getAmount();
+			Integer checked = cartItemVO.getIsChecked();
+			Cart cart = new Cart(userId, productId, quantity, checked);
+			// 通过新获得的cart数据将数据库中对应的cart数据更新
+			Cart isExistCart = cartService.selectByProductId(productId);
+			if (isExistCart == null) {
+				cartService.add(cart);
+			} else {
+				cartService.updateByProductId(cart);
+			}
+		}
 	}
 }

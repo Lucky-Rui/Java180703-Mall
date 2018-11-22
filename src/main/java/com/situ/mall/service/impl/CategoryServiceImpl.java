@@ -12,7 +12,7 @@ import com.situ.mall.service.ICategoryService;
 import com.situ.mall.vo.CategoryCountVO;
 
 @Service
-public class CategoryServiceImpl implements ICategoryService{
+public class CategoryServiceImpl implements ICategoryService {
 	@Autowired
 	private CategoryMapper categoryMapper;
 
@@ -27,6 +27,7 @@ public class CategoryServiceImpl implements ICategoryService{
 		List<Category> list = categoryMapper.selectSecondCategory(topCategoryId);
 		return ServerResponse.createSuccess("查找成功", list);
 	}
+
 	@Override
 	public List<Category> selectTopCategoryList() {
 		return categoryMapper.selectTopCategory();
@@ -41,5 +42,11 @@ public class CategoryServiceImpl implements ICategoryService{
 	public ServerResponse getCategoryCount() {
 		List<CategoryCountVO> list = categoryMapper.getCategoryCount();
 		return ServerResponse.createSuccess("成功", list);
+	}
+
+	@Override
+	public Category selectByCategoryId(Integer categoryId) {
+		Category category = categoryMapper.selectByPrimaryKey(categoryId);
+		return category;
 	}
 }

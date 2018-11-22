@@ -13,6 +13,18 @@ public class CartItemVO {
 	// 当前这个商品是否被选中：0：未选中 1：选中
 	private Integer isChecked;
 
+	public CartItemVO(Product product, Integer amount, Integer isChecked) {
+		super();
+		this.product = product;
+		this.amount = amount;
+		this.isChecked = isChecked;
+	}
+
+	public CartItemVO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public Product getProduct() {
 		return product;
 	}

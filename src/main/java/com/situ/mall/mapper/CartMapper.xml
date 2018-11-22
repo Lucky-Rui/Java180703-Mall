@@ -148,4 +148,71 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+	 <select id="pageList" parameterType="Cart" resultMap="BaseResultMap">
+		select 
+	  <include refid="Base_Column_List" />
+	  from cart
+	  <where>
+	  	<if test="userId!=null ">
+	  		and user_id = #{userId}
+	  	</if>
+	  	<if test="productId!=null ">
+	  		and product_id like '%${productId}%'
+	  	</if>
+	  	<if test="checked!=null">
+	  		and checked = #{checked}
+	  	</if>
+	  </where>
+	  group by user_id
+	</select>
+	
+	<delete id="deleteAll">
+		delete from cart 
+		where id in
+			<foreach collection="array" item="id" open="(" close=")" separator=",">
+				#{id}
+			</foreach>
+			
+	</delete>
+	
+	<select id="selectByProductId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	  select 
+	  <include refid="Base_Column_List" />
+	  from cart
+	  where product_id = #{productId,jdbcType=INTEGER} 
+	  ORDER BY update_time DESC
+	</select>
+	
+	<select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+	  select 
+	  <include refid="Base_Column_List" />
+	  from cart
+	  where user_id = #{userId,jdbcType=INTEGER} 
+	  ORDER BY create_time DESC
+	</select>
+	
+	<update id="updateByProductId" parameterType="com.situ.mall.entity.Cart" >
+	  update cart 
+	  set user_id = #{userId,jdbcType=INTEGER},
+	    quantity = #{quantity,jdbcType=INTEGER},
+	    checked = #{checked,jdbcType=INTEGER},
+	    update_time = now()
+	  where product_id = #{productId,jdbcType=INTEGER}
+	</update>
+	
+	<delete id="deleteByProductId" parameterType="java.lang.Integer" >
+	  delete from cart
+	  where product_id = #{productId,jdbcType=INTEGER}
+	</delete>
+	
+	<delete id="deleteByChecked" parameterType="java.lang.Integer" >
+	  delete from cart
+	  where checked = #{checked,jdbcType=INTEGER}
+	</delete>
+	<update id="updateChecked" parameterType="java.lang.Integer" >
+	  update cart 
+	  set checked = #{checked,jdbcType=INTEGER}
+	</update>
+	
 </mapper>

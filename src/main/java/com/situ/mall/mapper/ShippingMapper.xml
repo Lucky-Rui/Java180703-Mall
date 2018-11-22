@@ -208,4 +208,37 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="pageList" parameterType="Shipping" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from shipping
+    <where>
+    	<if test="id!=null ">
+    		and id = #{id}
+    	</if>
+    	<if test="receiverName!=null and receiverName!='' ">
+    		and receiver_name like '%${receiverName}%'
+    	</if>
+    	<if test="receiverProvince!=null and receiverProvince!='' ">
+    		and receiver_province like '%${receiverProvince}%'
+    	</if>
+    </where>
+  </select>
+  
+  <delete id="deleteAll">
+  	delete from shipping 
+  	where id in
+  		<foreach collection="array" item="id" open="(" close=")" separator=",">
+  			#{id}
+  		</foreach>
+  		
+  </delete>
+  
+  <select id="selectByUserId" parameterType="Integer" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from shipping
+    where user_id = #{userId}
+  </select>
 </mapper>

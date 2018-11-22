@@ -11,13 +11,13 @@ import com.situ.mall.common.ServerResponse;
 import com.situ.mall.constant.MallConstant;
 import com.situ.mall.service.IUserService;
 
-@RequestMapping("/user")
+@RequestMapping(value = "/user")
 @Controller
 public class FrontUserController {
 	@Autowired
 	private IUserService userService;
 
-	@RequestMapping("/login.shtml")
+	@RequestMapping(value = "/login.shtml")
 	@ResponseBody
 	public ServerResponse login(String username, String password, HttpSession session) {
 		ServerResponse response = userService.login(username, password);

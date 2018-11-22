@@ -160,4 +160,30 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+	<select id="pageList" parameterType="PayInfo" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List" />
+		from pay_info
+		<where>
+			<if test="orderNo!=null ">
+				and order_no like '%${orderNo}%'
+			</if>
+			<if test="platformNumber!=null and platformNumber!='' ">
+				and platform_number like '%${platformNumber}%'
+			</if>
+			<if test="platformStatus!=null and platformStatus!='' ">
+				and platform_status like '%${platformStatus}%'
+			</if>
+		</where>
+	</select>
+
+	<delete id="deleteAll">
+		delete from pay_info 
+		where id in
+		<foreach collection="array" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</delete>
+  
 </mapper>

@@ -1,5 +1,7 @@
 package com.situ.mall.mapper;
 
+import java.util.List;
+
 import com.situ.mall.entity.PayInfo;
 
 public interface PayInfoMapper {
@@ -39,4 +41,8 @@ public interface PayInfoMapper {
 	 * @mbggenerated
 	 */
 	int updateByPrimaryKey(PayInfo record);
+
+	List<PayInfo> pageList(PayInfo payInfo);
+
+	int deleteAll(String[] idArray);
 }

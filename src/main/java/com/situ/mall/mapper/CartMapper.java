@@ -1,5 +1,7 @@
 package com.situ.mall.mapper;
 
+import java.util.List;
+
 import com.situ.mall.entity.Cart;
 
 public interface CartMapper {
@@ -39,4 +41,18 @@ public interface CartMapper {
 	 * @mbggenerated
 	 */
 	int updateByPrimaryKey(Cart record);
+
+	List<Cart> pageList(Cart cart);
+
+	int deleteAll(String[] idArray);
+
+	Cart selectByProductId(Integer productId);
+
+	List<Cart> selectByUserId(Integer userId);
+
+	int updateByProductId(Cart cart);
+
+	int deleteByProductId(Integer productId);
+
+	int updateChecked(Integer checked);
 }

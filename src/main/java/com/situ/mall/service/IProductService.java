@@ -66,4 +66,6 @@ public interface IProductService {
 
 	List<Product> selectByCategoryId(Integer categoryId);
 
+	ServerResponse selectProductListByCategoryId(Integer categoryId, Integer page, Integer limit);
+
 }

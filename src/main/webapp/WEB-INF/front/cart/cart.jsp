@@ -107,7 +107,7 @@
 						</c:forEach>
 					</table>
 					<div class="user-form-group tags-box shopcart-submit pull-right">
-						<button onclick="getOrderPage()" class="btn">提交订单</button>
+						<a onclick="getOrderPage()" class="btn">提交订单</a>
 					</div>
 					<div class="checkbox shopcart-total">
 						<label><input type="checkbox" class="check-all"><i></i> 全选</label>
@@ -218,44 +218,12 @@
 	</div>
 	
 	<!-- login弹出层 -->
-	<div class="login" style="display:none" id="loginForm">
-		<form id="login-form">
-			<ul>
-				<li class="login_title_1">
-					<a href="">密码登录</a>
-
-				</li>
-				<li class="login_title_2">
-					<a href="">扫码登录</a>
-				</li>
-				<li>
-					<input id="username" name="username" class="login_user" type="text" placeholder="会员名/邮箱/手机号" />
-					<input id="password" name="password" class="login_password" type="password" placeholder="密码" />
-					<input class="login_btn" type="button" onclick="login()" value="登录" />
-				</li>
-				<li class="login_select">
-					<a class="weibo" href="">微博登录</a>
-					<a class="zhifubao" href="">支付宝登录</a><br />
-				</li>
-				<li class="renmenber_user">
-					<input type="checkbox" value="remer_user" id="remer_user" />
-					<label for="remer_user">记住用户名</label>
-				</li>
-				<li class="login_bottom">
-					<a href="">忘记密码</a>
-					<a href="">免费注册</a>
-				</li>
-			</ul>
-		</form>
-	</div>
-	
-	<!-- login弹出层 -->
-	<div class="form-box login" style="display:none" id="loginForm">
+	<div  class="form-box login" style="display:none;" id="loginForm">
 		<div class="tabs-nav">
 			<h2>欢迎登录U袋网平台</h2>
 		</div>
 		<div class="tabs_container">
-			<form class="tabs_form" action="" method="post" id="login_form">
+			<form class="tabs_form" action="" method="post" id="login-form">
 				<div class="form-group">
 					<div class="input-group">
 						<div class="input-group-addon">
@@ -290,10 +258,12 @@
 						 -->
 					</div>
 				</div>
-                    <button class="btn btn-large btn-primary btn-lg btn-block submit"  onclick="login()" id="login_submit" type="button">登录</button><br>
+                    <button class="btn btn-large btn-primary btn-lg btn-block submit"  onclick="login()" id="login_submit" type="button">
+                    	登录
+                    </button><br/>
                     <p class="text-center">没有账号？<a href="javascript:;" id="register">免费注册</a></p>
             </form>
-           <!--  <div class="tabs_div">
+            <div class="tabs_div">
             	<div class="success-box">
              		<div class="success-msg">
 						<i class="success-icon"></i>
@@ -309,7 +279,7 @@
 						<a role="button" href="udai_welcome.html" class="btn btn-block btn-lg btn-info">登录会员中心</a>
              	    </div>
              	</div>
-            </div> -->
+            </div>
 		</div>
 	</div>
 	
@@ -439,7 +409,7 @@
 					type : 1,
 					title : "登录",
 					offset : "50px",
-					area : ["350px",'350px'],
+					area : ["525px",'450px'],
 					content : $('#loginForm')
 				});
 			} else {//这个用户已经登录，直接跳转到生成订单页面

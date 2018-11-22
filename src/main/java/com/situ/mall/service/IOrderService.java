@@ -14,4 +14,10 @@ public interface IOrderService {
 	ServerResponse<List<Order>> deleteByPrimaryKey(Integer id);
 
 	ServerResponse<List<Order>> deleteAll(String ids);
+
+	ServerResponse addOrder(Order order, Integer checked, ICartService cartService, IProductService productService);
+
+	ServerResponse deleteByOrderNo(Long newOrderNo);
+
+	ServerResponse selectOrderByUserId(Integer page, Integer limit, Integer userId);
 }

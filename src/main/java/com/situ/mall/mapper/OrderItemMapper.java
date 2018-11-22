@@ -1,5 +1,7 @@
 package com.situ.mall.mapper;
 
+import java.util.List;
+
 import com.situ.mall.entity.OrderItem;
 
 public interface OrderItemMapper {
@@ -39,4 +41,6 @@ public interface OrderItemMapper {
 	 * @mbggenerated
 	 */
 	int updateByPrimaryKey(OrderItem record);
+
+	List<OrderItem> selectOrderItemByUserId(Integer userId);
 }
